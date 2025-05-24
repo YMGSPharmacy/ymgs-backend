@@ -20,18 +20,18 @@ connectCloudinary()
 
 //middleware
 app.use(express.json())
+const allowedOrigins = ['https://ymgspharmacy.com'];
+
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL,
-    process.env.ADMIN_URL,
-    "https://www.ymgspharmacy.com",
-    "https://www.admin.ymgspharmacy.com"
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'token'],
-  exposedHeaders: ['Content-Type', 'Authorization', 'token'],
-  credentials: true
-}))
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // if you're using cookies/auth headers
+}));
 
 // ✅ Global CORS Response Headers Middleware
 app.use((req, res, next) => {
