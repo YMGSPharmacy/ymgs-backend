@@ -32,15 +32,10 @@ app.use(cors({
   },
   credentials: true, // if you're using cookies/auth headers
 }));
+app.options('*', cors());
 
 // ✅ Global CORS Response Headers Middleware
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, token");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
+
 
 //api-end points
 app.get("/", (req, res) => {
