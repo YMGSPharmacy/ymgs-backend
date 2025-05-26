@@ -6,7 +6,7 @@ import connectCloudinary from './config/cloudinary.js'
 import userRouter from './routes/userRoutes.js'
 import productRouter from './routes/productRoute.js'
 import cartRouter from './routes/cartRoute.js'
-// import orderRouter from './routes/orderRoute.js'
+import orderRouter from './routes/orderRoute.js'
 import addressRouter from './routes/addressRoute.js'
 import contactRouter from './routes/contactRoutes.js'
 import uploadImageRoute from './routes/uploadImageRoute.js'
@@ -20,7 +20,7 @@ connectCloudinary()
 
 //middleware
 app.use(express.json())
-const allowedOrigins = ['https://ymgspharmacy.com', 'https://admin.ymgspharmacy.com', 'http://localhost:5174'];
+const allowedOrigins = ['https://ymgspharmacy.com', 'https://admin.ymgspharmacy.com', 'http://localhost:5174', 'http://localhost:5173'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
-// app.use('/api/order', orderRouter)
+app.use('/api/order', orderRouter)
 app.use('/api/address', addressRouter)
 app.use('/api/contact', contactRouter)
 app.use('/api/upload-image', uploadImageRoute)
