@@ -20,7 +20,7 @@ connectCloudinary()
 
 //middleware
 app.use(express.json())
-const allowedOrigins = ['https://ymgspharmacy.com', 'https://admin.ymgspharmacy.com', 'http://localhost:5174', 'http://localhost:5173'];
+const allowedOrigins = ['https://www.ymgspharmacy.com', 'https://www.admin.ymgspharmacy.com', 'http://localhost:5174', 'http://localhost:5173'];
 
 app.use(cors({
   origin: function (origin, callback) {
