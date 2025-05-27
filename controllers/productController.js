@@ -322,16 +322,16 @@ const editProduct = async (req, res) => {
     }
 }
 
-const getProductById = async (req, res) => {
+const getProductByName = async (req, res) => {
     try {
-        const productId = req.params.id;
-
+        const productName = req.params.name;
+        const decodeName = decodeURIComponent(productName)
         // Check if the ID is valid
-        if (!productId || productId.length < 12) {
-            return res.json({ success: false, message: "Invalid product ID" });
+        if (!productName) {
+            return res.json({ success: false, message: "Invalid product name" });
         }
 
-        const product = await productModel.findById(productId);
+        const product = await productModel.findOne({ name: new RegExp('^' + decodedName + '$', 'i') });
 
         if (!product) {
             return res.json({ success: false, message: "Product not found" });
@@ -344,4 +344,4 @@ const getProductById = async (req, res) => {
     }
 };
 
-export { addProduct, listProduct, listProductsForUsers, removeProduct, editProduct, getProductById }
+export { addProduct, listProduct, listProductsForUsers, removeProduct, editProduct, getProductByName }

@@ -1,11 +1,11 @@
 import express from "express"
-import { 
-    listProduct, 
+import {
+    listProduct,
     listProductsForUsers,
-    addProduct, 
-    removeProduct, 
-    editProduct, 
-    getProductById 
+    addProduct,
+    removeProduct,
+    editProduct,
+    getProductByName
 } from "../controllers/productController.js"
 import upload from "../middleware/multer.js";
 import adminAuth from "../middleware/adminAuth.js";
@@ -17,23 +17,23 @@ const productRouter = express.Router();
 productRouter.post('/user/list', listProductsForUsers);
 
 // Get a single product by ID
-productRouter.get('/:id', getProductById);
+productRouter.get('/:name', getProductByName);
 
 // ===== ADMIN ROUTES (Auth Required) =====
 // Admin product management
-productRouter.post('/add', adminAuth, upload.fields([{name:'image1', maxCount:1}, 
-    {name:'image2', maxCount:1}, 
-    {name:'image3', maxCount:1}, 
-    {name:'image4', maxCount:1}]),addProduct);
-    
+productRouter.post('/add', adminAuth, upload.fields([{ name: 'image1', maxCount: 1 },
+{ name: 'image2', maxCount: 1 },
+{ name: 'image3', maxCount: 1 },
+{ name: 'image4', maxCount: 1 }]), addProduct);
+
 productRouter.post('/remove', adminAuth, removeProduct);
 
 // Admin product listing (with more filtering options)
 productRouter.post('/list', listProduct);
 
-productRouter.post('/edit', adminAuth, upload.fields([{name:'image1', maxCount:1}, 
-    {name:'image2', maxCount:1}, 
-    {name:'image3', maxCount:1}, 
-    {name:'image4', maxCount:1}]), editProduct);
+productRouter.post('/edit', adminAuth, upload.fields([{ name: 'image1', maxCount: 1 },
+{ name: 'image2', maxCount: 1 },
+{ name: 'image3', maxCount: 1 },
+{ name: 'image4', maxCount: 1 }]), editProduct);
 
 export default productRouter;
