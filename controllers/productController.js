@@ -331,7 +331,7 @@ const getProductByName = async (req, res) => {
             return res.json({ success: false, message: "Invalid product name" });
         }
 
-        const product = await productModel.findOne({ name: new RegExp('^' + decodedName + '$', 'i') });
+        const product = await productModel.findOne({ name: decodeName });
 
         if (!product) {
             return res.json({ success: false, message: "Product not found" });
