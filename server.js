@@ -18,7 +18,7 @@ const app = express()
 const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
-// const cache = apicache.middleware;
+const cache = apicache.middleware;
 
 //middleware
 app.use(express.json())
@@ -35,7 +35,7 @@ app.use(cors({
   // credentials: true, // if you're using cookies/auth headers
 }));
 app.options('*', cors());
-// app.use(cache('2 minutes'));
+app.use(cache('2 minutes'));
 
 // ✅ Global CORS Response Headers Middleware
 
@@ -45,12 +45,12 @@ app.get("/", (req, res) => {
   res.status(200).send("YMGS pharmacy Backend");
 });
 app.use('/api/user', userRouter)
-app.use('/api/product', productRouter)
-app.use('/api/cart', cartRouter)
-app.use('/api/order', orderRouter)
+app.use('/api/product', cache('10 minutes'), productRouter)
+app.use('/api/cart', cache('10 minutes'), cartRouter)
+app.use('/api/order', cache('10 minutes'), orderRouter)
 app.use('/api/address', addressRouter)
 app.use('/api/contact', contactRouter)
-app.use('/api/upload-image', uploadImageRoute)
+app.use('/api/upload-image', cache('10 minutes'), uploadImageRoute)
 app.use('/api/blog', blogRouter)
 
 app.listen(port, () => console.log('Server started on PORT : ' + port))
